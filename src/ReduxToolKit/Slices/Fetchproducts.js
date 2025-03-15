@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const fetchproducts = createAsyncThunk("fetchproducts", async () => {
-    const response = await fetch("https://car-trade-api-3.onrender.com/data");
+    const response = await fetch("https://car-trade-backend-kety.onrender.com/data");
     const data = await response.json();
     return data;
 });

@@ -3,13 +3,15 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { motion } from "framer-motion";
 import { addToCart } from "../ReduxToolKit/Slices/cartSlice";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ProductDetail = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { _id } = useParams();
-  const { products } = useSelector((state) => state.items); // Get products from Redux store
-  const cartState = useSelector((state) => state.cart); // Get cart state
+  const { products } = useSelector((state) => state.items);
+  const cartState = useSelector((state) => state.cart);
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
@@ -17,22 +19,38 @@ const ProductDetail = () => {
     setProduct(foundProduct);
   }, [_id, products]);
 
-  // ✅ Handle Add to Cart Functionality
+  // ✅ Handle Add to Cart with Toastify
   const handleAddToCart = () => {
     if (!product) return;
-  
+
     dispatch(addToCart(product))
       .unwrap()
       .then(() => {
-        alert("Product added to cart successfully!");
+        toast.success("✅ Car added to cart successfully!", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       })
       .catch((error) => {
         console.error("Error adding to cart:", error);
-        alert(error?.message || JSON.stringify(error) || "Failed to add product to cart");
+        toast.error(error?.message || "❌  Already added this car to cart", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       });
-      
   };
-  
 
   if (!product) {
     return (
@@ -49,6 +67,7 @@ const ProductDetail = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
+      <ToastContainer />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 m-12">
         {/* Car Image */}
         <motion.div

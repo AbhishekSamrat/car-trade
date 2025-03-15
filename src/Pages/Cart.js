@@ -54,7 +54,10 @@ const Cart = () => {
       <h2 className="text-3xl text-center font-bold my-6">🛒 Your Cart</h2>
 
       {cartItems.length === 0 ? (
-        <p className="text-gray-500">Your cart is empty.</p>
+           <div>
+
+<img src="https://krosfitsports.com/public/empty-cart.gif" className="w-50 h-50 m-auto"></img>
+           </div>
       ) : (
         <>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

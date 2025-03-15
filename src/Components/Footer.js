@@ -5,7 +5,9 @@ const Footer = () => {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
-
+const subscribe = ()=>{
+   alert("Thank you for subscribe")
+}
   const handleSendMessage = () => {
     if (input.trim() !== "") {
       setMessages([...messages, { text: input, sender: "user" }]);
@@ -54,9 +56,9 @@ const Footer = () => {
               placeholder="Enter your email"
               className="p-2 rounded-l-md text-black outline-none w-full"
             />
-            {/* <button className="bg-blue-600 px-4 py-2 rounded-r-md hover:bg-blue-700">
+            <button onClick={subscribe} className="bg-blue-600 px-4 py-2 rounded-r-md hover:bg-blue-700">
               Subscribe
-            </button> */}
+            </button>
           </div>
         </div>
       </div>

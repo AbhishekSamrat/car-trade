@@ -10,7 +10,7 @@ export const addToCart = createAsyncThunk(
       if (!token) throw new Error("User not authenticated");
 
       const response = await axios.post(
-        "http://localhost:8000/cart/add",
+        "https://car-trade-backend-kety.onrender.com/cart/add",
         { product },
         {
           headers: {
@@ -35,7 +35,7 @@ export const fetchCart = createAsyncThunk(
       const token = localStorage.getItem("token");
       if (!token) throw new Error("User not authenticated");
 
-      const response = await axios.get("http://localhost:8000/cart", {
+      const response = await axios.get("https://car-trade-backend-kety.onrender.com/cart", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -61,7 +61,7 @@ export const removeItem = createAsyncThunk(
       if (!token) throw new Error("User not authenticated");
 
       const response = await axios.post(
-        `http://localhost:8000/cart/remove/${productId}`,
+        `https://car-trade-backend-kety.onrender.com/cart/remove/${productId}`,
         {}, // Empty body, as it's a POST request
         {
           headers: {

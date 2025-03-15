@@ -17,7 +17,7 @@ const Signup = () => {
     setError("");
 
     try {
-      const response = await axios.post("http://localhost:8000/signup", {
+      const response = await axios.post("https://car-trade-backend-kety.onrender.com/signup", {
         email,
         password,
       });
