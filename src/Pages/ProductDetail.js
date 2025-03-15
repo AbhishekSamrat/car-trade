@@ -1,18 +1,38 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { motion } from "framer-motion";
+import { addToCart } from "../ReduxToolKit/Slices/cartSlice";
 
 const ProductDetail = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { _id } = useParams();
   const { products } = useSelector((state) => state.items); // Get products from Redux store
+  const cartState = useSelector((state) => state.cart); // Get cart state
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
     const foundProduct = products.find((p) => p._id === _id);
     setProduct(foundProduct);
   }, [_id, products]);
+
+  // ✅ Handle Add to Cart Functionality
+  const handleAddToCart = () => {
+    if (!product) return;
+  
+    dispatch(addToCart(product))
+      .unwrap()
+      .then(() => {
+        alert("Product added to cart successfully!");
+      })
+      .catch((error) => {
+        console.error("Error adding to cart:", error);
+        alert(error?.message || JSON.stringify(error) || "Failed to add product to cart");
+      });
+      
+  };
+  
 
   if (!product) {
     return (
@@ -49,7 +69,7 @@ const ProductDetail = () => {
 
           <div className="mt-4">
             <p className="text-2xl font-semibold text-blue-600">
-              ₹ {product.price ? Number(product.price).toLocaleString() : "N/A"}
+              $ {product.price ? Number(product.price).toLocaleString() : "N/A"}
             </p>
           </div>
 
@@ -63,19 +83,26 @@ const ProductDetail = () => {
           </div>
 
           {/* Action Buttons */}
-          <div className="mt-6 flex justify-center items-center">
-  <motion.button
-    className="cursor-pointer bg-gradient-to-r from-red-500 to-purple-500 text-white px-6 py-2 rounded-md font-semibold shadow-md transition-all hover:from-purple-500 hover:to-red-500 "
-    whileHover={{ scale: 1.05 }}
-    animate={{ opacity: [1, 0.5, 1] }}
-    transition={{ repeat: Infinity, duration: 1 }}
-    onClick={() => navigate("/dealer-call")}
-  >
-    Get a Call from Dealer
-  </motion.button>
-</div>
+          <div className="mt-6 flex flex-col md:flex-row justify-center items-center gap-4">
+            <motion.button
+              className="cursor-pointer bg-gradient-to-r from-red-500 to-purple-500 text-white px-6 py-2 rounded-md font-semibold shadow-md transition-all hover:from-purple-500 hover:to-red-500"
+              whileHover={{ scale: 1.05 }}
+              animate={{ opacity: [1, 0.5, 1] }}
+              transition={{ repeat: Infinity, duration: 1 }}
+              onClick={() => navigate("/dealer-call")}
+            >
+              Get a Call from Dealer
+            </motion.button>
 
-
+            {/* 🛒 Add to Cart Button */}
+            <motion.button
+              className="bg-blue-500 text-white px-6 py-2 rounded-md font-semibold shadow-md transition-all hover:bg-blue-700"
+              whileHover={{ scale: 1.05 }}
+              onClick={handleAddToCart}
+            >
+              {cartState.loading ? "Adding..." : "Add to Cart 🛒"}
+            </motion.button>
+          </div>
         </div>
       </div>
     </motion.div>

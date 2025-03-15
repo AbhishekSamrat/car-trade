@@ -12,6 +12,9 @@ import { useEffect } from "react";
 import NewCars from "./Pages/NewCars";
 import UsedCars from "./Pages/UsedCar";
 import DealerPage from "./Pages/DealerPage";
+import LoginPage from "./Pages/LogIn";
+import Signup from "./Pages/Signup";
+import Cart from "./Pages/Cart";
 
 
 
@@ -21,10 +24,18 @@ function App() {
     const {products,status,error} = useSelector((state)=> state.items)//
     
     console.log("productsssss",products);
+
+
+    async function getData(){
+      let res = await fetch('localhost://5000/data');
+      let data= await res.json();
+      console.log(data);
+    }
    
    
     useEffect(() => {
       dispatch(fetchproducts()); // Fetch data when the component mounts
+      // getData();
   }, [dispatch]);
    
     if(status === "loading"){
@@ -45,6 +56,9 @@ function App() {
     <Route path="/new-cars" element={<NewCars />} />
     <Route path="/used-cars" element={<UsedCars />} />
     <Route path="/dealer-call" element={<DealerPage />} />
+    <Route path="/login" element={<LoginPage />} />
+    <Route path="/signup" element={<Signup />} />
+    <Route path="/cart" element={<Cart />} />
   </Routes>
   <Footer />
     </BrowserRouter>

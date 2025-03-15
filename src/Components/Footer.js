@@ -54,9 +54,9 @@ const Footer = () => {
               placeholder="Enter your email"
               className="p-2 rounded-l-md text-black outline-none w-full"
             />
-            <button className="bg-blue-600 px-4 py-2 rounded-r-md hover:bg-blue-700">
+            {/* <button className="bg-blue-600 px-4 py-2 rounded-r-md hover:bg-blue-700">
               Subscribe
-            </button>
+            </button> */}
           </div>
         </div>
       </div>
@@ -71,13 +71,13 @@ const Footer = () => {
      
       
   
-        <a href="#" className="p-3 bg-red-600 rounded-full text-white shadow-lg hover:scale-110 transition">
+        <a href="https://www.youtube.com/cartrade" className="p-3 bg-red-600 rounded-full text-white shadow-lg hover:scale-110 transition">
           <FaYoutube size={20} />
         </a>
-        <a href="#" className="p-3 bg-gray-800 rounded-full text-white shadow-lg hover:scale-110 transition">
+        <a href="https://x.com/Car_Trade" className="p-3 bg-gray-800 rounded-full text-white shadow-lg hover:scale-110 transition">
           <FaXTwitter size={20} />
         </a>
-        <a href="#" className="p-3 bg-blue-700 rounded-full text-white shadow-lg hover:scale-110 transition">
+        <a href="https://www.linkedin.com/company/cartrade-com/?originalSubdomain=in" className="p-3 bg-blue-700 rounded-full text-white shadow-lg hover:scale-110 transition">
           <FaLinkedinIn size={20} />
         </a>
       </div>
